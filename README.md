@@ -1,70 +1,50 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Project Overview
+This project is a personal expense tracking system with intelligent spending insights. Its main purpose is to help users understand their spending behavior by analyzing past expenses and automatically generating monthly insights, trends, and warnings for each expense category.
+Instead of only displaying totals, the system uses machine learning to predict expected expenses and compare them with actual spending, allowing the user to identify unusual or excessive expenses.
+________________________________________
+### How the Project Works
+1. Expense Data Collection
+The user records daily expenses with:
+•	Amount
+•	Category (e.g., Food, Transportation, Utilities)
+•	Date
+All expense data is stored and grouped by month and category.
+________________________________________
+2. Monthly Category Analysis
+For each expense category:
+•	The system computes total monthly expenses
+•	A rolling average based on the previous months is calculated
+•	Percentage change from the average is determined
+This allows the system to detect whether spending increased or decreased.
+________________________________________
+3. Machine Learning-Based Prediction
+For categories with enough historical data:
+•	The system trains a neural network model directly in the browser using TensorFlow.js
+•	Past monthly expenses are used as input to predict the expected spending for the current month
+•	The prediction is compared with the actual expense value
+If the difference is significant, the system flags the category as:
+•	Overspending
+•	Underspending
+•	Normal spending
+________________________________________
+4. Visualization and Insights
+For better understanding:
+•	Each category displays a short insight message
+•	Users can toggle a chart showing monthly spending trends
+•	Categories with unusual changes are highlighted visually
+This helps users quickly identify problem areas in their budget.
+________________________________________
+Why Machine Learning Is Used
+Traditional expense trackers only show totals and averages.
+This project goes further by:
+•	Learning spending patterns from past data
+•	Predicting expected future expenses
+•	Detecting anomalies automatically
+This makes the system adaptive and personalized for each user.
+________________________________________
+Key Features of the Project
+•	Category-based expense tracking
+•	Monthly spending comparison
+•	Machine learning prediction per category
+•	Automatic overspending detection
+•	Interactive charts and insights
