@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/smart-expense/static/css/main.be9ebc90.css",
+    "main.js": "/smart-expense/static/js/main.58b1b316.js",
+    "static/js/453.784b7b62.chunk.js": "/smart-expense/static/js/453.784b7b62.chunk.js",
+    "index.html": "/smart-expense/index.html",
+    "main.be9ebc90.css.map": "/smart-expense/static/css/main.be9ebc90.css.map",
+    "main.58b1b316.js.map": "/smart-expense/static/js/main.58b1b316.js.map",
+    "453.784b7b62.chunk.js.map": "/smart-expense/static/js/453.784b7b62.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.be9ebc90.css",
+    "static/js/main.58b1b316.js"
+  ]
+}
