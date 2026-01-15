@@ -10,7 +10,7 @@ import './App.css';
 function Navbar({ currentPage, setCurrentPage }) {
   return (
     <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#2d2f39', padding: '12px 20px', borderRadius: '8px', marginBottom: '20px' }}>
-      <h2 style={{ color: 'white', margin: 0 }}>Expense Tracker</h2>
+      <h2 style={{ color: 'white', margin: 0 }}>Smart Expense</h2>
       <div style={{ display: 'flex', gap: '10px' }}>
         {['dashboard', 'calendar'].map((page) => (
           <button
