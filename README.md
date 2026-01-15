@@ -11,9 +11,8 @@ The user records daily expenses with:
     <li>Amount</li>
     <li>Category (e.g., Food, Transportation, Utilities)</li>
     <li>Date</li>
+    All expense data is stored and grouped by month and category.
 </ul>
-All expense data is stored and grouped by month and category.
-
 2. Monthly Category Analysis
 For each expense category:
 <ul>
