@@ -7,46 +7,61 @@ Instead of only displaying totals, the system uses machine learning to predict e
 ### How the Project Works
 1. Expense Data Collection
 The user records daily expenses with:
-•	Amount
-•	Category (e.g., Food, Transportation, Utilities)
-•	Date
+<ul>
+    <li>Amount</li>
+    <li>Category (e.g., Food, Transportation, Utilities)</li>
+    <li>Date</li>
+</ul>
 All expense data is stored and grouped by month and category.
 
 2. Monthly Category Analysis
 For each expense category:
-•	The system computes total monthly expenses
-•	A rolling average based on the previous months is calculated
-•	Percentage change from the average is determined
+<ul>
+    <li>The system computes total monthly expenses</li>
+    <li>A rolling average based on the previous months is calculated</li>
+    <li>Percentage change from the average is determined</li>
+</ul>
 This allows the system to detect whether spending increased or decreased.
 
 3. Machine Learning-Based Prediction
 For categories with enough historical data:
-•	The system trains a neural network model directly in the browser using TensorFlow.js
-•	Past monthly expenses are used as input to predict the expected spending for the current month
-•	The prediction is compared with the actual expense value
+<ul>
+    <li>The system trains a neural network model directly in the browser using TensorFlow.js</li>
+    <li>Past monthly expenses are used as input to predict the expected spending for the current month</li>
+    <li>The prediction is compared with the actual expense value</li>
+</ul>
 If the difference is significant, the system flags the category as:
-•	Overspending
-•	Underspending
-•	Normal spending
+<ul>
+    <li>Overspending</li>
+    <li>Underspending</li>
+    <li>Normal spending</li>
+</ul>
 
 4. Visualization and Insights
 For better understanding:
-•	Each category displays a short insight message
-•	Users can toggle a chart showing monthly spending trends
-•	Categories with unusual changes are highlighted visually
+<ul>
+    <li>Each category displays a short insight message</li>
+    <li>Users can toggle a chart showing monthly spending trends</li>
+    <li>Categories with unusual changes are highlighted visually</li>
+</ul>
 This helps users quickly identify problem areas in their budget.
 
 Why Machine Learning Is Used
 Traditional expense trackers only show totals and averages.
 This project goes further by:
-•	Learning spending patterns from past data
-•	Predicting expected future expenses
-•	Detecting anomalies automatically
+<ul>
+    <li>Learning spending patterns from past data</li>
+    <li>Predicting expected future expenses</li>
+    <li>Detecting anomalies automatically</li>
+</ul>
 This makes the system adaptive and personalized for each user.
 
 Key Features of the Project
-•	Category-based expense tracking
-•	Monthly spending comparison
-•	Machine learning prediction per category
-•	Automatic overspending detection
-•	Interactive charts and insights
+<ul>
+    <li>Category-based expense tracking</li>
+    <li>Monthly spending comparison</li>
+    <li>Machine learning prediction per category</li>
+    <li>Automatic overspending detection</li>
+    <li>Interactive charts and insights</li>
+</ul>
+
