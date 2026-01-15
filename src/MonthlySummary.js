@@ -12,7 +12,10 @@ function MonthlySummary({ expenses, month, year }) {
   const totalExpenses = monthlyExpenses.reduce((sum, e) => sum + e.amount, 0);
 
   const totalIncome = expenses
-    .filter(e => e.type === 'income')
+    .filter(e => e.type === 'income' && (
+      (e.month === undefined && e.year === undefined) ||
+      (e.month === month && e.year === year)
+    ))
     .reduce((sum, e) => {
       const adjustedAmount = e.frequency === 'bi-weekly' ? e.amount * 2 : e.amount;
       return sum + adjustedAmount;

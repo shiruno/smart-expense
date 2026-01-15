@@ -114,7 +114,10 @@ function App() {
   const totalExpenses = monthlyExpenses.reduce((sum, e) => sum + e.amount, 0);
 
   const totalIncome = expenses
-    .filter(e => e.type === 'income')
+    .filter(e => e.type === 'income' && (
+      (e.month === undefined && e.year === undefined) ||
+      (e.month === currentMonth && e.year === currentYear)
+    ))
     .reduce((sum, e) => sum + (e.frequency === 'bi-weekly' ? e.amount * 2 : e.amount), 0);
 
   return (
@@ -188,6 +191,8 @@ function App() {
               setEditingExpense={setEditingExpense}
               updateExpense={updateExpense}
               expenses={expenses}
+              month={currentMonth}
+              year={currentYear}
             />
 
             {/* Divider */}

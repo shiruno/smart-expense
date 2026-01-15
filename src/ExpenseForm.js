@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-function ExpenseForm({ expenseCategories, addExpense, totalExpenses, totalIncome, editingExpense, setEditingExpense, updateExpense, expenses }) {
+function ExpenseForm({ expenseCategories, addExpense, totalExpenses, totalIncome, editingExpense, setEditingExpense, updateExpense, expenses, month, year }) {
   const [date, setDate] = useState('');
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
   const [type, setType] = useState('expense');
   const [frequency, setFrequency] = useState('monthly');
+  const [incomeMonth, setIncomeMonth] = useState(month);
+  const [incomeYear, setIncomeYear] = useState(year);
   const [warning, setWarning] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 
@@ -17,6 +19,8 @@ function ExpenseForm({ expenseCategories, addExpense, totalExpenses, totalIncome
       setCategory(editingExpense.category || '');
       setType(editingExpense.type || 'expense');
       setFrequency(editingExpense.frequency || 'monthly');
+      setIncomeMonth(typeof editingExpense.month === 'number' ? editingExpense.month : month);
+      setIncomeYear(typeof editingExpense.year === 'number' ? editingExpense.year : year);
       setIsEditing(!editingExpense.isNew); // TRUE only for real edits
     } else {
       // Load saved draft if present
@@ -79,6 +83,9 @@ function ExpenseForm({ expenseCategories, addExpense, totalExpenses, totalIncome
       }
     } else {
       entry.frequency = frequency;
+      // attach month/year to income entries so incomes can be tracked per-month
+      entry.month = typeof incomeMonth === 'number' ? incomeMonth : month;
+      entry.year = typeof incomeYear === 'number' ? incomeYear : year;
     }
 
     if (isEditing) {
@@ -137,10 +144,29 @@ function ExpenseForm({ expenseCategories, addExpense, totalExpenses, totalIncome
         <input type="number" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} required />
 
         {type === 'income' && (
-          <select value={frequency} onChange={(e) => setFrequency(e.target.value)}>
-            <option value="monthly">Monthly</option>
-            <option value="bi-weekly">Bi-Weekly</option>
-          </select>
+          <>
+            <select value={frequency} onChange={(e) => setFrequency(e.target.value)}>
+              <option value="monthly">Monthly</option>
+              <option value="bi-weekly">Bi-Weekly</option>
+            </select>
+
+            <div style={{ marginTop: '8px' }}>
+              <label style={{ marginRight: '6px' }}>Month:</label>
+              <select value={incomeMonth} onChange={(e) => setIncomeMonth(Number(e.target.value))}>
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <option key={i} value={i}>{new Date(0, i).toLocaleString(undefined, { month: 'long' })}</option>
+                ))}
+              </select>
+
+              <label style={{ margin: '0 6px' }}>Year:</label>
+              <select value={incomeYear} onChange={(e) => setIncomeYear(Number(e.target.value))}>
+                {Array.from({ length: 5 }).map((_, i) => {
+                  const y = new Date().getFullYear() - 2 + i;
+                  return <option key={y} value={y}>{y}</option>;
+                })}
+              </select>
+            </div>
+          </>
         )}
 
         <button type="submit">{isEditing ? 'Update' : 'Add'}</button>
