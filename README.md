@@ -12,8 +12,8 @@ The user records daily expenses with:
     <li>Category (e.g., Food, Transportation, Utilities)</li>
     <li>Date</li>
 </ul>
-All expense data is stored and grouped by month and category.<br>
-
+All expense data is stored and grouped by month and category.
+<br>
 2. Monthly Category Analysis
 For each expense category:
 <ul>
@@ -21,8 +21,8 @@ For each expense category:
     <li>A rolling average based on the previous months is calculated</li>
     <li>Percentage change from the average is determined</li>
 </ul>
-This allows the system to detect whether spending increased or decreased.<br>
-
+This allows the system to detect whether spending increased or decreased.
+<br>
 3. Machine Learning-Based Prediction
 For categories with enough historical data:
 <ul>
@@ -44,8 +44,8 @@ For better understanding:
     <li>Users can toggle a chart showing monthly spending trends</li>
     <li>Categories with unusual changes are highlighted visually</li>
 </ul>
-This helps users quickly identify problem areas in their budget.<br>
-
+This helps users quickly identify problem areas in their budget.
+<br>
 Why Machine Learning Is Used
 Traditional expense trackers only show totals and averages.
 This project goes further by:
@@ -54,8 +54,8 @@ This project goes further by:
     <li>Predicting expected future expenses</li>
     <li>Detecting anomalies automatically</li>
 </ul>
-This makes the system adaptive and personalized for each user.<br>
-
+This makes the system adaptive and personalized for each user.
+<br>
 Key Features of the Project
 <ul>
     <li>Category-based expense tracking</li>
