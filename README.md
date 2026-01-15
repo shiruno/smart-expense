@@ -1,4 +1,4 @@
-[##Smart Expense Webpage](https://shiruno.github.io/smart-expense/)
+## [Smart Expense Webpage](https://shiruno.github.io/smart-expense/)
 ---
 # Project Overview
 This project is a personal expense tracking system with intelligent spending insights. Its main purpose is to help users understand their spending behavior by analyzing past expenses and automatically generating monthly insights, trends, and warnings for each expense category.
