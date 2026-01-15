@@ -36,7 +36,6 @@ If the difference is significant, the system flags the category as:
     <li>Underspending</li>
     <li>Normal spending</li>
 </ul>
-<br>
 
 4. Visualization and Insights
 For better understanding:
