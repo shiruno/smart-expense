@@ -41,7 +41,7 @@ function App() {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [editingExpense, setEditingExpense] = useState(null);
   const [lookbackMonths, setLookbackMonths] = useState(6);
-  const [currentPage, setCurrentPage] = useState('dashboard');
+  const [currentPage, setCurrentPage] = useState('calendar');
 
   useEffect(() => {
     try {
