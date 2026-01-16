@@ -7,11 +7,11 @@ import Insights from './Insights';
 
 import './App.css';
 
-function Navbar({ currentPage, setCurrentPage }) {
+function Navbar({ currentPage, setCurrentPage, onSeedTestData }) {
   return (
     <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#2d2f39', padding: '12px 20px', borderRadius: '8px', marginBottom: '20px' }}>
       <h2 style={{ color: 'white', margin: 0 }}>Smart Expense</h2>
-      <div style={{ display: 'flex', gap: '10px' }}>
+      <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
         {['dashboard', 'calendar'].map((page) => (
           <button
             key={page}
@@ -29,6 +29,17 @@ function Navbar({ currentPage, setCurrentPage }) {
             {page.charAt(0).toUpperCase() + page.slice(1)}
           </button>
         ))}
+
+        {/* Seed test data button (dev only) */}
+        {typeof onSeedTestData === 'function' && (
+          <button
+            onClick={onSeedTestData}
+            title="Seed 6 months of test data"
+            style={{ background: '#28a745', color: 'white', padding: '8px 12px', border: 'none', borderRadius: '6px', cursor: 'pointer' }}
+          >
+            Seed Test Data
+          </button>
+        )}
       </div>
     </nav>
   );
@@ -90,6 +101,58 @@ function App() {
   const addExpense = (expense) => setExpenses([...expenses, expense]);
   const addExpenseCategory = (category) => setExpenseCategories([...expenseCategories, category]);
 
+  // Seed test data: 6 previous months (income + expenses)
+  const seedTestData = (opts = {}) => {
+    const months = typeof opts.months === 'number' ? opts.months : 6;
+    const includeCurrent = !!opts.includeCurrent;
+    const incomeAmount = typeof opts.incomeAmount === 'number' ? opts.incomeAmount : 12000;
+    const foodAmount = typeof opts.foodAmount === 'number' ? opts.foodAmount : 100;
+    const transportAmount = typeof opts.transportAmount === 'number' ? opts.transportAmount : 60;
+
+    const now = new Date();
+    const seeded = [];
+    const startIndex = includeCurrent ? 0 : 1;
+    const endIndex = startIndex + months - 1;
+    for (let j = startIndex; j <= endIndex; j++) {
+      const m = new Date(now.getFullYear(), now.getMonth() - j, 1);
+      const y = m.getFullYear();
+      const mm = m.getMonth();
+      const monthStr = String(mm + 1).padStart(2, '0');
+
+      // add Food and Transport every day except Sundays
+      const lastDay = new Date(y, mm + 1, 0).getDate();
+      for (let d = 1; d <= lastDay; d++) {
+        const dayDate = new Date(y, mm, d);
+        const dayOfWeek = dayDate.getDay(); // 0 = Sunday
+        if (dayOfWeek === 0) continue;
+        const dd = String(d).padStart(2, '0');
+        const dateStr = `${y}-${monthStr}-${dd}`;
+        seeded.push({ type: 'expense', amount: foodAmount, date: dateStr, category: 'Food' });
+        seeded.push({ type: 'expense', amount: transportAmount, date: dateStr, category: 'Transport' });
+      }
+
+      seeded.push({ type: 'income', amount: incomeAmount, frequency: 'monthly', month: mm, year: y });
+    }
+
+    // Merge categories
+    const newCats = new Set(expenseCategories);
+    newCats.add('Food');
+    newCats.add('Transport');
+    const mergedCats = Array.from(newCats);
+    setExpenseCategories(mergedCats);
+
+    // Merge expenses and persist
+    const mergedExpenses = Array.isArray(expenses) ? expenses.concat(seeded) : seeded;
+    setExpenses(mergedExpenses);
+    try {
+      localStorage.setItem('expenses', JSON.stringify(mergedExpenses));
+      localStorage.setItem('expenseCategories', JSON.stringify(mergedCats));
+      window.alert(`Seeded ${seeded.length} entries.`);
+    } catch (e) {
+      console.warn('Failed to persist seeded data:', e);
+    }
+  };
+
   const updateExpense = (index, updatedExpense) => {
     const newExpenses = [...expenses];
     newExpenses[index] = updatedExpense;
@@ -122,7 +185,7 @@ function App() {
 
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} onSeedTestData={() => seedTestData()} />
 
       {currentPage === 'dashboard' && (
         <>

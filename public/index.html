@@ -29,6 +29,72 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <!-- Auto-seed localStorage for testing when the app is opened (only in dev). -->
+    <script>
+      (function() {
+        try {
+          // Simple guard: only run in development on localhost
+          if (!location.hostname.includes('localhost') && location.hostname !== '127.0.0.1') return;
+
+          function seedLocalStorage(opts = {}) {
+            const monthsToSeed = typeof opts.months === 'number' ? opts.months : 6;
+            const includeCurrent = !!opts.includeCurrent; // default false -> previous months
+            const startOffset = typeof opts.startOffset === 'number' ? opts.startOffset : 0;
+            const incomeAmount = typeof opts.incomeAmount === 'number' ? opts.incomeAmount : 12000;
+            const foodAmount = typeof opts.foodAmount === 'number' ? opts.foodAmount : 100;
+            const transportAmount = typeof opts.transportAmount === 'number' ? opts.transportAmount : 60;
+
+            const now = new Date();
+            const seeded = [];
+            const startIndex = includeCurrent ? 0 : 1;
+            const endIndex = startIndex + monthsToSeed - 1;
+            for (let j = startIndex; j <= endIndex; j++) {
+              const m = new Date(now.getFullYear(), now.getMonth() - j + startOffset, 1);
+              const y = m.getFullYear();
+              const mm = m.getMonth();
+              const monthStr = String(mm + 1).padStart(2, '0');
+              const foodDate = y + '-' + monthStr + '-05';
+              const transportDate = y + '-' + monthStr + '-15';
+              seeded.push({ type: 'expense', amount: foodAmount, date: foodDate, category: 'Food' });
+              seeded.push({ type: 'expense', amount: transportAmount, date: transportDate, category: 'Transport' });
+              seeded.push({ type: 'income', amount: incomeAmount, frequency: 'monthly', month: mm, year: y });
+            }
+
+            try {
+              const existingCats = JSON.parse(localStorage.getItem('expenseCategories') || '[]');
+              const cats = new Set(Array.isArray(existingCats) ? existingCats : []);
+              cats.add('Food'); cats.add('Transport');
+              localStorage.setItem('expenseCategories', JSON.stringify(Array.from(cats)));
+            } catch (e) {
+              console.warn('Failed to set categories:', e);
+            }
+
+            try {
+              const existing = JSON.parse(localStorage.getItem('expenses') || '[]');
+              const merged = Array.isArray(existing) ? existing.concat(seeded) : seeded;
+              localStorage.setItem('expenses', JSON.stringify(merged));
+              console.log('Seeded', seeded.length, 'entries into localStorage (expenses).');
+            } catch (e) {
+              console.error('Failed to write expenses to localStorage:', e);
+            }
+          }
+
+          // Run once on first load (avoid reseeding if already has data)
+          try {
+            const existing = JSON.parse(localStorage.getItem('expenses') || '[]');
+            if (!Array.isArray(existing) || existing.length === 0) {
+              seedLocalStorage();
+            } else {
+              console.log('Existing expenses found, skipping auto-seed.');
+            }
+          } catch (e) {
+            console.warn('Seeder check failed:', e);
+          }
+        } catch (e) {
+          console.warn('Auto-seed aborted:', e);
+        }
+      })();
+    </script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
