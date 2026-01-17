@@ -5,6 +5,7 @@ This project is a personal expense tracking system with intelligent spending ins
 Instead of only displaying totals, the system uses machine learning to predict expected expenses and compare them with actual spending, allowing the user to identify unusual or excessive expenses.
 
 ### How the Project Works
+
 1. Expense Data Collection
 The user records daily expenses with:
 <ul>
